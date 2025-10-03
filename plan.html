@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<head>
+  <title>JADWAL - One Star, One Plan, On The Go</title>
+   <link rel="stylesheet" href="styles.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="homepage.html">JADWAL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="plan.html">Start Planning</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <main class="plan-flow">
+    <section class="plan-hero">
+      <h1>Your Jadwal Playbook</h1>
+      <p>Work through each step to build a plan your crew will actually show up to.</p>
+    </section>
+
+    <section class="plan-wizard" aria-label="Plan builder">
+      <ol class="wizard-steps" role="list">
+        <li class="wizard-step is-active" data-step="0">
+          <span class="step-number">1</span>
+          <span class="step-label">Set the vibe</span>
+        </li>
+        <li class="wizard-step" data-step="1">
+          <span class="step-number">2</span>
+          <span class="step-label">Dial filters</span>
+        </li>
+        <li class="wizard-step" data-step="2">
+          <span class="step-number">3</span>
+          <span class="step-label">See picks</span>
+        </li>
+        <li class="wizard-step" data-step="3">
+          <span class="step-number">4</span>
+          <span class="step-label">Share plan</span>
+        </li>
+      </ol>
+
+      <div class="wizard-content">
+        <article class="step-panel is-active" data-step="0">
+          <h2>What kind of vibe are you in the mood for?</h2>
+          <p>Select a star level so Jadwal knows if you want chill hangs or full send energy.</p>
+          <div class="star-picker" role="group" aria-label="Select vibe level">
+            <button type="button" class="star-option" data-value="1" aria-pressed="false" aria-label="1 star vibe"><span aria-hidden="true">★</span></button>
+            <button type="button" class="star-option" data-value="2" aria-pressed="false" aria-label="2 star vibe"><span aria-hidden="true">★</span></button>
+            <button type="button" class="star-option" data-value="3" aria-pressed="false" aria-label="3 star vibe"><span aria-hidden="true">★</span></button>
+            <button type="button" class="star-option" data-value="4" aria-pressed="false" aria-label="4 star vibe"><span aria-hidden="true">★</span></button>
+            <button type="button" class="star-option" data-value="5" aria-pressed="false" aria-label="5 star vibe"><span aria-hidden="true">★</span></button>
+          </div>
+          <p class="step-hint">1 star keeps it wallet-friendly. 5 stars = big night out.</p>
+        </article>
+
+        <article class="step-panel" data-step="1">
+          <h2>Dial in the details</h2>
+          <p>We tailor every suggestion to match the timing, group, and outing style you choose.</p>
+          <form class="filter-form">
+            <div class="filter-grid">
+              <label>
+                Time of day
+                <select name="time" required>
+                  <option value="">Select one</option>
+                  <option value="morning">Morning</option>
+                  <option value="afternoon">Afternoon</option>
+                  <option value="evening">Evening</option>
+                  <option value="late-night">Late night</option>
+                </select>
+              </label>
+              <label>
+                Group size
+                <select name="group" required>
+                  <option value="">Select one</option>
+                  <option value="small">1-2 friends</option>
+                  <option value="medium">3-5 friends</option>
+                  <option value="large">6+ friends</option>
+                </select>
+              </label>
+              <label>
+                Outing type
+                <select name="type" required>
+                  <option value="">Select one</option>
+                  <option value="food">Food & drinks</option>
+                  <option value="activity">Activities</option>
+                  <option value="mixed">A little of both</option>
+                </select>
+              </label>
+            </div>
+          </form>
+        </article>
+
+        <article class="step-panel" data-step="2">
+          <h2>Your curated picks</h2>
+          <p class="step-hint">We matched these options to your vibe. Swap the filters any time to get a fresh lineup.</p>
+          <div class="selection-summary">
+            <span data-summary="vibe"></span>
+            <span data-summary="time"></span>
+            <span data-summary="group"></span>
+            <span data-summary="type"></span>
+          </div>
+          <div class="suggestions" id="suggestionsList" role="list"></div>
+          <p class="no-results" hidden>We couldn't find a perfect trio, so we expanded the search. Tweak your vibe or filters for even tighter ideas.</p>
+        </article>
+
+        <article class="step-panel" data-step="3">
+          <h2>Share it with the group</h2>
+          <p class="step-hint">Copy the recap and drop it into the chat. Voting happens in Jadwal, but this blurb gets everyone hyped.</p>
+          <div class="share-card">
+            <textarea readonly id="shareText" aria-label="Shareable plan recap"></textarea>
+            <div class="share-actions">
+              <button type="button" class="wizard-btn" id="copyPlan">Copy plan recap</button>
+              <span class="copy-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+          <button type="button" class="ghost-link" id="restartPlanner">Start another plan</button>
+        </article>
+      </div>
+
+      <div class="wizard-nav">
+        <button type="button" class="wizard-btn ghost" id="prevStep" disabled>Back</button>
+        <button type="button" class="wizard-btn" id="nextStep">Next</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const state = {
+        step: 0,
+        vibe: null,
+        filters: { time: '', group: '', type: '' },
+        suggestions: []
+      };
+
+      const stepPanels = Array.from(document.querySelectorAll('.step-panel'));
+      const stepIndicators = Array.from(document.querySelectorAll('.wizard-step'));
+      const nextBtn = document.getElementById('nextStep');
+      const prevBtn = document.getElementById('prevStep');
+      const restartBtn = document.getElementById('restartPlanner');
+      const shareText = document.getElementById('shareText');
+      const copyButton = document.getElementById('copyPlan');
+      const copyStatus = document.querySelector('.copy-status');
+      const filterForm = document.querySelector('.filter-form');
+      const suggestionList = document.getElementById('suggestionsList');
+      const noResults = document.querySelector('.no-results');
+      const summaryFields = {
+        vibe: document.querySelector('[data-summary="vibe"]'),
+        time: document.querySelector('[data-summary="time"]'),
+        group: document.querySelector('[data-summary="group"]'),
+        type: document.querySelector('[data-summary="type"]')
+      };
+
+      const suggestionsPool = [
+        {
+          name: 'Sunrise Matcha Meetup',
+          vibe: [1, 2],
+          types: ['food', 'mixed'],
+          times: ['morning'],
+          groups: ['small', 'medium'],
+          highlight: 'Cozy coffee bar with house-made pastries and quiet corners for catching up.',
+          location: 'Beacon Street'
+        },
+        {
+          name: 'Rooftop Bites & Beats',
+          vibe: [3, 5],
+          types: ['food', 'mixed'],
+          times: ['evening', 'late-night'],
+          groups: ['medium', 'large'],
+          highlight: 'Small plates, skyline views, and a rotating DJ set after 9 PM.',
+          location: 'Downtown Loft District'
+        },
+        {
+          name: 'Art Walk + Gelato',
+          vibe: [1, 3],
+          types: ['mixed'],
+          times: ['afternoon', 'evening'],
+          groups: ['small', 'medium'],
+          highlight: 'Self-guided gallery stroll ending with a gelato flight sampler.',
+          location: 'River Arts District'
+        },
+        {
+          name: 'Glow Bowling League',
+          vibe: [2, 4],
+          types: ['activity', 'mixed'],
+          times: ['evening', 'late-night'],
+          groups: ['medium', 'large'],
+          highlight: 'Neon bowling lanes, throwback playlist, and shareable snack towers.',
+          location: 'Neon Alley Lanes'
+        },
+        {
+          name: 'Chef Pop-Up Tasting',
+          vibe: [4, 5],
+          types: ['food'],
+          times: ['evening'],
+          groups: ['small'],
+          highlight: 'Five-course tasting menu from a guest chef with optional wine pairings.',
+          location: 'Vault Supper Club'
+        },
+        {
+          name: 'Sunday Picnic Pack',
+          vibe: [1, 3],
+          types: ['food', 'mixed'],
+          times: ['afternoon'],
+          groups: ['small', 'medium'],
+          highlight: 'Curated picnic basket, blanket rental, and lawn games ready for the park.',
+          location: 'Harborfront Greens'
+        },
+        {
+          name: 'Escape Room Showdown',
+          vibe: [3, 4],
+          types: ['activity'],
+          times: ['afternoon', 'evening'],
+          groups: ['medium', 'large'],
+          highlight: 'Beat the clock in themed rooms with leaderboard bragging rights.',
+          location: 'Puzzle District HQ'
+        },
+        {
+          name: 'Late Night Dessert Crawl',
+          vibe: [2, 5],
+          types: ['food', 'mixed'],
+          times: ['late-night'],
+          groups: ['small', 'medium'],
+          highlight: 'A guided stroll through three dessert bars with signature sweet flights.',
+          location: 'Sugar Lane'
+        }
+      ];
+
+      document.querySelectorAll('.star-option').forEach(button => {
+        button.addEventListener('click', () => {
+          state.vibe = Number(button.dataset.value);
+          document.querySelectorAll('.star-option').forEach(btn => {
+            const value = Number(btn.dataset.value);
+            const isActive = state.vibe !== null && value <= state.vibe;
+            btn.classList.toggle('is-selected', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
+          });
+          updateSummary();
+        });
+      });
+
+      filterForm.addEventListener('change', event => {
+        const { name, value } = event.target;
+        if (Object.prototype.hasOwnProperty.call(state.filters, name)) {
+          state.filters[name] = value;
+          updateSummary();
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (!validateStep(state.step)) {
+          return;
+        }
+
+        if (state.step === 1) {
+          state.suggestions = buildSuggestions();
+          renderSuggestions();
+        }
+
+        if (state.step === 2) {
+          shareText.value = buildShareMessage();
+        }
+
+        if (state.step >= stepPanels.length - 1) {
+          return;
+        }
+
+        state.step += 1;
+        syncUI();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (state.step === 0) {
+          return;
+        }
+        state.step -= 1;
+        syncUI();
+      });
+
+      restartBtn.addEventListener('click', resetPlanner);
+
+      copyButton.addEventListener('click', async () => {
+        if (!shareText.value.trim()) {
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(shareText.value);
+          copyStatus.textContent = 'Copied to clipboard!';
+        } catch (err) {
+          shareText.focus();
+          shareText.select();
+          copyStatus.textContent = 'Press ⌘/Ctrl + C to copy.';
+        }
+        setTimeout(() => {
+          copyStatus.textContent = '';
+        }, 2400);
+      });
+
+      function validateStep(stepIndex) {
+        if (stepIndex === 0 && !state.vibe) {
+          highlightError('.star-picker');
+          return false;
+        }
+
+        if (stepIndex === 1) {
+          const valid = Object.values(state.filters).every(Boolean);
+          if (!valid) {
+            highlightError('.filter-form');
+          }
+          return valid;
+        }
+
+        return true;
+      }
+
+      function highlightError(selector) {
+        const target = document.querySelector(selector);
+        target.classList.add('shake');
+        setTimeout(() => target.classList.remove('shake'), 600);
+      }
+
+      function syncUI() {
+        stepPanels.forEach(panel => {
+          panel.classList.toggle('is-active', Number(panel.dataset.step) === state.step);
+        });
+
+        stepIndicators.forEach(indicator => {
+          const index = Number(indicator.dataset.step);
+          indicator.classList.toggle('is-active', index === state.step);
+          indicator.classList.toggle('is-complete', index < state.step);
+        });
+
+        prevBtn.disabled = state.step === 0;
+
+        if (state.step === stepPanels.length - 1) {
+          nextBtn.textContent = 'Finish';
+          nextBtn.disabled = true;
+        } else {
+          const labels = ['Next', 'See picks', 'Share plan'];
+          nextBtn.textContent = labels[state.step] || 'Next';
+          nextBtn.disabled = false;
+        }
+      }
+
+      function updateSummary() {
+        if (summaryFields.vibe) {
+          summaryFields.vibe.textContent = state.vibe ? `${state.vibe}★ vibe` : '';
+        }
+
+        const timeMap = {
+          '': '',
+          'morning': 'Morning outing',
+          'afternoon': 'Afternoon outing',
+          'evening': 'Evening outing',
+          'late-night': 'Late night outing'
+        };
+
+        const groupMap = {
+          '': '',
+          'small': 'Small crew (1-2)',
+          'medium': 'Mid crew (3-5)',
+          'large': 'Big crew (6+)'
+        };
+
+        const typeMap = {
+          '': '',
+          'food': 'Food & drinks',
+          'activity': 'Activities',
+          'mixed': 'Mix it up'
+        };
+
+        summaryFields.time.textContent = timeMap[state.filters.time];
+        summaryFields.group.textContent = groupMap[state.filters.group];
+        summaryFields.type.textContent = typeMap[state.filters.type];
+      }
+
+      function buildSuggestions() {
+        const { vibe, filters } = state;
+        const matches = suggestionsPool.filter(item => {
+          const vibeMatch = vibe >= item.vibe[0] && vibe <= item.vibe[1];
+          const typeMatch = filters.type === 'mixed' ? true : item.types.includes(filters.type);
+          const timeMatch = !filters.time || item.times.includes(filters.time);
+          const groupMatch = !filters.group || item.groups.includes(filters.group);
+          return vibeMatch && typeMatch && timeMatch && groupMatch;
+        });
+
+        if (matches.length >= 3) {
+          return matches.slice(0, 3);
+        }
+
+        const fallback = suggestionsPool.filter(item => {
+          const vibeMatch = vibe >= item.vibe[0] && vibe <= item.vibe[1];
+          const typeMatch = filters.type === 'mixed' ? true : item.types.includes(filters.type);
+          return vibeMatch && typeMatch;
+        });
+
+        const combined = [...new Set([...matches, ...fallback])];
+        return combined.slice(0, 3);
+      }
+
+      function renderSuggestions() {
+        suggestionList.innerHTML = '';
+        noResults.hidden = state.suggestions.length > 0;
+
+        if (!state.suggestions.length) {
+          return;
+        }
+
+        state.suggestions.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'suggestion-card';
+          card.setAttribute('role', 'listitem');
+          card.innerHTML = `
+            <div class="suggestion-badge">Pick ${index + 1}</div>
+            <h3>${item.name}</h3>
+            <p>${item.highlight}</p>
+            <span class="suggestion-meta">${item.location}</span>
+          `;
+          suggestionList.appendChild(card);
+        });
+      }
+
+      function buildShareMessage() {
+        const vibeText = state.vibe ? `${state.vibe}★ vibe` : '';
+        const timeText = summaryFields.time.textContent;
+        const groupText = summaryFields.group.textContent;
+        const typeText = summaryFields.type.textContent;
+        const picks = state.suggestions
+          .map((item, index) => `${index + 1}. ${item.name} — ${item.highlight}`)
+          .join('\n');
+
+        return [
+          'Jadwal plan is ready! 🚀',
+          [vibeText, timeText, groupText, typeText].filter(Boolean).join(' • '),
+          '',
+          picks,
+          '',
+          'Vote in Jadwal so we can lock the plan.'
+        ].join('\n');
+      }
+
+      function resetPlanner() {
+        state.step = 0;
+        state.vibe = null;
+        state.filters = { time: '', group: '', type: '' };
+        state.suggestions = [];
+        document.querySelectorAll('.star-option').forEach(btn => {
+          btn.classList.remove('is-selected');
+          btn.setAttribute('aria-pressed', 'false');
+        });
+        filterForm.reset();
+        suggestionList.innerHTML = '';
+        noResults.hidden = true;
+        shareText.value = '';
+        updateSummary();
+        syncUI();
+      }
+
+      updateSummary();
+      syncUI();
+    })();
+  </script>
+
+</body>
+
+<footer><small>&copy; 2025 JADWAL
+  <nav>
+    <a href="www.tiktok.com">TikTok</a> |
+    <a href="www.instagram.com">Instagram</a> |
+    <a href ="Email:jadwal@gmail.com">jadwal@gmail.com</a>
+  </nav>
+</footer>
